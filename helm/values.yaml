@@ -1,0 +1,93 @@
+# -- Partially override the chart name
+nameOverride: ""
+# -- Fully override the chart fullname
+fullnameOverride: ""
+
+# ---------------------------------------------------------------------------
+# Backend
+# ---------------------------------------------------------------------------
+backend:
+  image:
+    repository: ghcr.io/your-org/backend
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  replicaCount: 1
+
+  service:
+    type: ClusterIP
+    port: 3000
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+  # Extra environment variables for the backend container
+  extraEnv:
+    - name: PGSSLMODE
+      value: "require"
+
+# ---------------------------------------------------------------------------
+# Frontend
+# ---------------------------------------------------------------------------
+frontend:
+  image:
+    repository: ghcr.io/your-org/frontend
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  replicaCount: 1
+
+  service:
+    type: ClusterIP
+    port: 8080
+
+  ingress:
+    enabled: false
+    className: ""
+    host: joke-app.local
+    tls: []
+    #  - secretName: joke-app-tls
+    #    hosts:
+    #      - joke-app.local
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+# ---------------------------------------------------------------------------
+# CloudNativePG Cluster
+# ---------------------------------------------------------------------------
+database:
+  # Name of the CNPG Cluster resource
+  clusterName: joke-db
+
+  # Number of PostgreSQL instances (1 = no HA, 3 = HA with 2 standbys)
+  instances: 1
+
+  # Full image reference – pin to a specific minor version for reproducibility
+  postgresImage: "ghcr.io/cloudnative-pg/postgresql:17.5"
+
+  # Database and owner created by initdb bootstrap
+  database: jokes
+  owner: jokes
+
+  storage:
+    size: 1Gi
+    # Leave empty to use the cluster default StorageClass
+    storageClass: ""
+
+# ---------------------------------------------------------------------------
+# CNPG Operator (sub-chart)
+# Set enabled: false when the operator is already installed in the cluster.
+# ---------------------------------------------------------------------------
+cloudnative-pg:
+  enabled: true

@@ -1,0 +1,27 @@
+Thank you for installing {{ .Chart.Name }} ({{ .Chart.Version }})!
+
+Release: {{ .Release.Name }}
+Namespace: {{ .Release.Namespace }}
+
+=== Database ===
+A CloudNativePG cluster named "{{ .Values.database.clusterName }}" will be created.
+The operator automatically generates a secret "{{ .Values.database.clusterName }}-app"
+with the application user credentials.
+
+Wait for the cluster to be ready:
+  kubectl get cluster {{ .Values.database.clusterName }} -n {{ .Release.Namespace }} -w
+
+=== Backend ===
+Service: {{ include "joke-app.backend.fullname" . }}:{{ .Values.backend.service.port }}
+
+=== Frontend ===
+Service: {{ include "joke-app.frontend.fullname" . }}:{{ .Values.frontend.service.port }}
+
+{{- if .Values.frontend.ingress.enabled }}
+The frontend is exposed at: http{{ if .Values.frontend.ingress.tls }}s{{ end }}://{{ .Values.frontend.ingress.host }}
+{{- else }}
+To access the frontend locally, run:
+  kubectl port-forward svc/{{ include "joke-app.frontend.fullname" . }} 8080:{{ .Values.frontend.service.port }} -n {{ .Release.Namespace }}
+
+Then open: http://localhost:8080
+{{- end }}

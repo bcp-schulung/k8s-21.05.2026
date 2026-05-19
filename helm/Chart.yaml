@@ -1,0 +1,11 @@
+apiVersion: v2
+name: joke-app
+description: Helm chart deploying the joke application (frontend + backend) with a CloudNativePG database
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+dependencies:
+  - name: cloudnative-pg
+    version: "0.28.2"
+    repository: https://cloudnative-pg.github.io/charts
