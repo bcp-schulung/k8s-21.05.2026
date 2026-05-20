@@ -15,7 +15,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/frontend
+  IMAGE_NAME: ${{ github.repository }}/frontend
 
 jobs:
   build-and-push:
