@@ -90,4 +90,4 @@ database:
 # Set enabled: false when the operator is already installed in the cluster.
 # ---------------------------------------------------------------------------
 cloudnative-pg:
-  enabled: true
+  enabled: false
