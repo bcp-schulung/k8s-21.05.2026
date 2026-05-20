@@ -8,7 +8,7 @@ fullnameOverride: ""
 # ---------------------------------------------------------------------------
 backend:
   image:
-    repository: ghcr.io/your-org/backend
+    repository: harbor.vm-4.k8s.it-scholar.com:31473/proxy/bcp-schulung/k8s-21.05.2026/backend
     tag: latest
     pullPolicy: IfNotPresent
 
@@ -36,7 +36,7 @@ backend:
 # ---------------------------------------------------------------------------
 frontend:
   image:
-    repository: ghcr.io/your-org/frontend
+    repository: harbor.vm-4.k8s.it-scholar.com:31473/proxy/bcp-schulung/k8s-21.05.2026/frontend
     tag: latest
     pullPolicy: IfNotPresent
 
