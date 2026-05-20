@@ -2,6 +2,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: {{ .Values.database.clusterName }}
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "joke-app.labels" . | nindent 4 }}
 spec:
