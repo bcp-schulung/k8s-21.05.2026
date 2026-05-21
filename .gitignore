@@ -12,3 +12,9 @@ setup/*.sh
 # ── macOS ─────────────────────────────────────────────────────────────────────
 .DS_Store
 setup/all_credentials.md
+setup/teafield/deploy-teafield.sh
+setup/teafield/values-group1.yaml
+setup/teafield/values-group2.yaml
+setup/teafield/values-group3.yaml
+setup/teafield/values-group4.yaml
+setup/teafield/values-group5.yaml
